@@ -1,0 +1,271 @@
+--====================================================
+-- SCRIPT BLOX FRUIT - FINAL (OPTIMIZED)
+-- Toggle: T | Icon T | UNLOAD: END
+--====================================================
+
+pcall(function()
+    if game.CoreGui:FindFirstChild("ScriptBloxFruitFinal") then
+        game.CoreGui.ScriptBloxFruitFinal:Destroy()
+    end
+end)
+
+-- SERVICES
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local UIS = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
+local Lighting = game:GetService("Lighting")
+local Camera = workspace.CurrentCamera
+
+-- GUI ROOT
+local gui = Instance.new("ScreenGui", game.CoreGui)
+gui.Name = "ScriptBloxFruitFinal"
+gui.ResetOnSpawn = false
+
+-- ICON T
+local icon = Instance.new("TextButton", gui)
+icon.Size = UDim2.new(0,45,0,45)
+icon.Position = UDim2.new(0,15,0.5,-20)
+icon.Text = "T"
+icon.TextScaled = true
+icon.BackgroundColor3 = Color3.fromRGB(0,170,255)
+icon.TextColor3 = Color3.new(1,1,1)
+icon.Active = true
+icon.Draggable = true
+Instance.new("UICorner", icon).CornerRadius = UDim.new(1,0)
+
+-- MAIN FRAME
+local main = Instance.new("Frame", gui)
+main.Size = UDim2.new(0,650,0,450)
+main.Position = UDim2.new(0.15,0,0.22,0)
+main.BackgroundColor3 = Color3.fromRGB(18,18,26)
+main.Visible = false
+main.Active = true
+main.Draggable = true
+Instance.new("UICorner", main)
+
+-- ANIMATION
+local function toggleMenu()
+    if main.Visible then
+        TweenService:Create(main,TweenInfo.new(0.25),
+            {BackgroundTransparency = 1}):Play()
+        task.wait(0.25)
+        main.Visible = false
+        main.BackgroundTransparency = 0
+    else
+        main.BackgroundTransparency = 1
+        main.Visible = true
+        TweenService:Create(main,TweenInfo.new(0.25),
+            {BackgroundTransparency = 0}):Play()
+    end
+end
+
+icon.MouseButton1Click:Connect(toggleMenu)
+UIS.InputBegan:Connect(function(i,g)
+    if g then return end
+    if i.KeyCode == Enum.KeyCode.T then
+        toggleMenu()
+    elseif i.KeyCode == Enum.KeyCode.End then
+        gui:Destroy()
+    end
+end)
+
+-- TITLE
+local title = Instance.new("TextLabel", main)
+title.Size = UDim2.new(1,0,0,45)
+title.BackgroundTransparency = 1
+title.Text = "SCRIPT BLOX FRUIT"
+title.TextScaled = true
+title.TextColor3 = Color3.fromRGB(200,220,255)
+
+-- TAB BAR
+local tabBar = Instance.new("Frame", main)
+tabBar.Size = UDim2.new(0,160,1,-50)
+tabBar.Position = UDim2.new(0,0,0,50)
+tabBar.BackgroundColor3 = Color3.fromRGB(25,25,35)
+
+-- CONTENT
+local content = Instance.new("Frame", main)
+content.Size = UDim2.new(1,-170,1,-60)
+content.Position = UDim2.new(0,165,0,55)
+content.BackgroundColor3 = Color3.fromRGB(30,30,45)
+Instance.new("UICorner", content)
+
+-- PAGES
+local pages = {}
+local function newPage()
+    local f = Instance.new("Frame", content)
+    f.Size = UDim2.new(1,0,1,0)
+    f.Visible = false
+    f.BackgroundTransparency = 1
+    return f
+end
+
+pages.BF = newPage()
+pages.KHAC = newPage()
+pages.BF.Visible = true
+
+local function showPage(name)
+    for _,p in pairs(pages) do p.Visible = false end
+    pages[name].Visible = true
+end
+
+-- TAB BUTTON
+local tabY = 10
+local function Tab(text,callback)
+    local b = Instance.new("TextButton", tabBar)
+    b.Size = UDim2.new(1,-10,0,45)
+    b.Position = UDim2.new(0,5,0,tabY)
+    tabY += 55
+    b.Text = text
+    b.TextScaled = true
+    b.BackgroundColor3 = Color3.fromRGB(40,40,60)
+    b.TextColor3 = Color3.fromRGB(200,200,255)
+    Instance.new("UICorner", b)
+    b.MouseButton1Click:Connect(callback)
+end
+
+Tab("?? Blox Fruits",function() showPage("BF") end)
+Tab("? Khác",function() showPage("KHAC") end)
+
+-- BUTTON MAKER
+local function Button(parent,text,y,callback)
+    local b = Instance.new("TextButton", parent)
+    b.Size = UDim2.new(0.9,0,0,46)
+    b.Position = UDim2.new(0.05,0,0,y)
+    b.Text = text
+    b.TextScaled = true
+    b.BackgroundColor3 = Color3.fromRGB(60,120,255)
+    b.TextColor3 = Color3.new(1,1,1)
+    Instance.new("UICorner", b)
+    b.MouseButton1Click:Connect(function()
+        pcall(callback)
+    end)
+end
+
+--==================== BLOX FRUITS ====================
+Button(pages.BF,"?? Blue X Hub",20,function()
+    loadstring(game:HttpGet(
+        "https://raw.githubusercontent.com/Dev-BlueX/BlueX-Hub/refs/heads/main/Main.lua"
+    ))()
+end)
+
+Button(pages.BF,"?? Redz Hub",75,function()
+    loadstring(game:HttpGet("https://pandadevelopment.net/virtual/file/d884de20f5064c88"))()
+end)
+
+Button(pages.BF,"?? King Rùa Hub",130,function() repeat task.wait() until game:IsLoaded() and game.Players.LocalPlayer
+loadstring(game:HttpGet("https://raw.githubusercontent.com/shinichi-dz/phucshinyeuem/refs/heads/main/KingRuaHub.lua"))()
+end)
+Button(pages.BF,"?? OMG Hub",185,function()
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/20f318386e3fbf069ee3fa797cfc9f34.lua"))()
+ end)
+
+Button(pages.BF,"?? Quantum Hub",240,function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/flazhy/QuantumOnyx/refs/heads/main/QuantumOnyx.lua"))()
+ end)
+
+Button(pages.BF,"?? Teddy Hub",295,function()
+repeat wait() until game:IsLoaded() and game.Players.LocalPlayer
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Teddyseetink/Haidepzai/refs/heads/main/TeddyHub.lua"))()
+ end)
+
+--==================== FIX LAG ====================
+Button(pages.KHAC,"? Fix Lag SAFE",30,function()
+    Lighting.GlobalShadows = false
+    Lighting.FogEnd = 1e9
+    for _,v in pairs(Lighting:GetChildren()) do
+        if v:IsA("PostEffect") then v.Enabled = false end
+    end
+    for _,v in pairs(workspace:GetDescendants()) do
+        if v:IsA("ParticleEmitter") or v:IsA("Trail")
+        or v:IsA("Smoke") or v:IsA("Fire")
+        or v:IsA("Sparkles") then
+            v.Enabled = false
+        end
+    end
+end)
+
+Button(pages.KHAC,"?? Fix Lag ULTRA",90,function()
+    Lighting.GlobalShadows = false
+    Lighting.FogEnd = 1e9
+    for _,v in pairs(Lighting:GetChildren()) do
+        if v:IsA("PostEffect") then v.Enabled = false end
+    end
+    for _,v in pairs(workspace:GetDescendants()) do
+        if v:IsA("ParticleEmitter") or v:IsA("Trail")
+        or v:IsA("Smoke") or v:IsA("Fire")
+        or v:IsA("Sparkles") then
+            v.Enabled = false
+        elseif v:IsA("Decal") or v:IsA("Texture") then
+            v.Transparency = 1
+        elseif v:IsA("MeshPart") then
+            v.Material = Enum.Material.Plastic
+            v.Reflectance = 0
+        end
+    end
+    if workspace:FindFirstChild("Terrain") then
+        local t = workspace.Terrain
+        t.WaterWaveSize = 0
+        t.WaterWaveSpeed = 0
+        t.WaterTransparency = 1
+        t.WaterReflectance = 0
+    end
+end)
+
+--==================== ESP PLAYER ====================
+local ESP = false
+local ESP_DRAW = {}
+
+local function clearESP()
+    for _,d in pairs(ESP_DRAW) do d:Remove() end
+    ESP_DRAW = {}
+end
+
+local function enableESP()
+    clearESP()
+    for _,plr in pairs(Players:GetPlayers()) do
+        if plr ~= LocalPlayer then
+            local t = Drawing.new("Text")
+            t.Size = 14
+            t.Center = true
+            t.Outline = true
+            t.Color = Color3.fromRGB(255,0,0)
+            ESP_DRAW[plr] = t
+        end
+    end
+end
+
+local tickESP = 0
+RunService.Heartbeat:Connect(function(dt)
+    if not ESP then return end
+    tickESP += dt
+    if tickESP < 0.1 then return end
+    tickESP = 0
+
+    for plr,t in pairs(ESP_DRAW) do
+        if plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+            local pos,vis = Camera:WorldToViewportPoint(
+                plr.Character.HumanoidRootPart.Position
+            )
+            t.Visible = vis
+            if vis then
+                t.Position = Vector2.new(pos.X,pos.Y-25)
+                t.Text = plr.Name
+            end
+        else
+            t.Visible = false
+        end
+    end
+end)
+
+Button(pages.KHAC,"?? ESP Player ON",160,function()
+    ESP = true
+    enableESP()
+end)
+
+Button(pages.KHAC,"? ESP Player OFF",220,function()
+    ESP = false
+    clearESP()
+end)
